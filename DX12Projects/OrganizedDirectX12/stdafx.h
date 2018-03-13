@@ -190,7 +190,7 @@ struct DrawCubesInfo
 
 void DrawCubes(DrawCubesInfo& info);
 
-ThreadPool<DrawCubesInfo>* globalThreadPool;
+ThreadPool* globalThreadPool;
 
 template<typename T>
 auto force_string(T arg) {
