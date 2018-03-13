@@ -111,7 +111,7 @@ void WaitForPreviousFrame(SwapChainHandler& swapChainHandler);
 
 // We need a window handler
 HWND hwnd = NULL;
-// Set the name of the window (NOT THE TITLE)
+// Sets the name of the window (NOT THE TITLE)
 LPCTSTR WindowName = "A Comparative Study of Modern Graphics APIs on Performance and Programmability Direct3D12";
 // Should be obvious what this is (this is the title of the window)
 LPCTSTR WindowTitle = "A Comparative Study of Modern Graphics APIs on Performance and Programmability Direct3D12";
@@ -123,7 +123,7 @@ int Height = 600;
 
 // fullscreen mode
 bool FullScreen = false;
-//bool needed for running, application will instantly shutdown if set to false.
+// bool needed for running, application will instantly shutdown if set to false.
 bool Running = true;
 
 // Main loop of the application

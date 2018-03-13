@@ -33,9 +33,6 @@ Cube::Cube(int i, std::vector<ID3D12Resource*> uploadHeapResources,
 	}
 
 	// Matrix initialization
-	//cameraProjMat = cameraProj;
-	//cameraViewMat = cameraView;
-
 	DirectX::XMStoreFloat4x4(&cubeRotMat, DirectX::XMMatrixIdentity());
 
 	cubePosition = DirectX::XMFLOAT4(renderObject.x(), renderObject.y(), renderObject.z(), 1.0f);
@@ -58,13 +55,13 @@ D3D12_GPU_VIRTUAL_ADDRESS Cube::GetVirtualGpuAddress(int frameBufferIndex) const
 
 void Cube::UpdateWVPMatrix(int frameBufferIndex)
 {
-	DirectX::XMMATRIX rotXMat = DirectX::XMMatrixRotationX(0.0001f*(index + 1) * std::pow(-1, index));
-	DirectX::XMMATRIX rotYMat = DirectX::XMMatrixRotationY(0.0002f*(index + 1) * std::pow(-1, index));
-	DirectX::XMMATRIX rotZMat = DirectX::XMMatrixRotationZ(0.0003f*(index + 1) * std::pow(-1, index));
-
 	// add rotation to cube1's rot matrix
 	DirectX::XMMATRIX  rotMat;
 	if (TestConfiguration::GetInstance().rotateCubes) {
+		DirectX::XMMATRIX rotXMat = DirectX::XMMatrixRotationX(0.0001f*(index + 1) * std::pow(-1, index));
+		DirectX::XMMATRIX rotYMat = DirectX::XMMatrixRotationY(0.0002f*(index + 1) * std::pow(-1, index));
+		DirectX::XMMATRIX rotZMat = DirectX::XMMatrixRotationZ(0.0003f*(index + 1) * std::pow(-1, index));
+
 		rotMat = DirectX::XMLoadFloat4x4(&cubeRotMat)  * rotXMat * rotYMat * rotZMat;
 	}
 	else {

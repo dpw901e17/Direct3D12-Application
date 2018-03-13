@@ -50,9 +50,6 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	WaitForPreviousFrame(*globalSwapchain);
 	CloseHandle(fenceEvent);
 
-	//TODO: fix diz!
-	//Cleanup(*globalSwapchain);
-
 	return 0;
 }
 
@@ -365,12 +362,12 @@ ID3D12RootSignature*  CreateRootSignature(const Device& device) {
 	//Static sampler
 	//For bordercolour and no mipmap.
 	D3D12_STATIC_SAMPLER_DESC sampler = {};
-	sampler.Filter = D3D12_FILTER_MIN_MAG_MIP_POINT;
+	sampler.Filter = D3D12_FILTER_ANISOTROPIC;
 	sampler.AddressU = D3D12_TEXTURE_ADDRESS_MODE_BORDER;
 	sampler.AddressV = D3D12_TEXTURE_ADDRESS_MODE_BORDER;
 	sampler.AddressW = D3D12_TEXTURE_ADDRESS_MODE_BORDER;
 	sampler.MipLODBias = 0;
-	sampler.MaxAnisotropy = 0;
+	sampler.MaxAnisotropy = 16;
 	sampler.ComparisonFunc = D3D12_COMPARISON_FUNC_NEVER;
 	sampler.BorderColor = D3D12_STATIC_BORDER_COLOR_OPAQUE_WHITE;
 	sampler.MinLOD = 0.0f;
@@ -398,7 +395,6 @@ ID3D12RootSignature*  CreateRootSignature(const Device& device) {
 	}
 
 	// Tell device to create signature
-	
 	ID3D12RootSignature* rSignature;
 	hr = device.GetDevice()->CreateRootSignature(0, signature->GetBufferPointer(), signature->GetBufferSize(), IID_PPV_ARGS(&rSignature));
 	if (FAILED(hr)) {
@@ -408,7 +404,7 @@ ID3D12RootSignature*  CreateRootSignature(const Device& device) {
 }
 
 D3D12_INPUT_LAYOUT_DESC  inputLayout() {
-	//Input layer creation
+	// Input layer creation
 	// Defines how shaders should read from vlist .
 	auto inputLayout = new D3D12_INPUT_ELEMENT_DESC[2];
 	inputLayout[0] = D3D12_INPUT_ELEMENT_DESC{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 };
