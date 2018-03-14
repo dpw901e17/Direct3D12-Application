@@ -84,9 +84,8 @@ void mainloop(DataCollection<WMIDataItem>& wmiDataCollection, DataCollection<Pip
 	size_t secondTrackerInNanoSec = 0;
 
 	//frame time
-	std::vector<size_t> CircularFrameTimeArray;
 	std::stringstream frameTimeCsv;
-	frameTimeCsv << "Frametime(nanoseconds)\n";
+	frameTimeCsv << "frametime(nanoseconds)\n";
 
 
 	while (Running && (nanoSec / 1000000000 < testConfig.seconds) || (testConfig.seconds == 0))
@@ -123,7 +122,10 @@ void mainloop(DataCollection<WMIDataItem>& wmiDataCollection, DataCollection<Pip
 				secondTrackerInNanoSec %= 1000000000;
 				oldfps = fps;
 				fps = 0;
-				CircularFrameTimeArray.push_back(delta);
+				if (testConfig.recordFrameTime) {
+					frameTimeCsv << delta << "\n";
+				}
+
 
 
 				if (TestConfiguration::GetInstance().recordFPS) {
@@ -213,11 +215,6 @@ void mainloop(DataCollection<WMIDataItem>& wmiDataCollection, DataCollection<Pip
 	}
 
 	if (testConfig.recordFrameTime) {
-		
-		for (auto time : CircularFrameTimeArray) {
-			frameTimeCsv << time << "\n";
-		}
-
 		SaveToFile("frameTime_" + fname + ".csv", frameTimeCsv.str());
 	}
 
