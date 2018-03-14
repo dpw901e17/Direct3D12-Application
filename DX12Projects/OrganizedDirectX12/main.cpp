@@ -82,6 +82,19 @@ void mainloop(DataCollection<WMIDataItem>& wmiDataCollection, DataCollection<Pip
 	int fps = 0;	//<-- this one is incremented each frame (and reset once a second)
 	int oldfps = 0;	//<-- this one is recorded by the probe (and set once per second)
 	size_t secondTrackerInNanoSec = 0;
+
+	//frame time
+	int frameTime;
+
+
+	std::vector<int> CircularFrameTimeArray(testConfig.frameTimeArrayLength);
+	int frameTimeIndex = 0;
+	bool frameTimeArrayFull = false;
+
+	std::stringstream frameTimeCsv;
+	frameTimeCsv << "Frametime\n";
+
+
 	while (Running && (nanoSec / 1000000000 < testConfig.seconds) || (testConfig.seconds == 0))
 	{
 		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
@@ -121,6 +134,13 @@ void mainloop(DataCollection<WMIDataItem>& wmiDataCollection, DataCollection<Pip
 					fpsCsv << oldfps << "\n";
 				}
 			}
+
+			if (frameTimeIndex == testConfig.frameTimeArrayLength) {
+				frameTimeIndex = 0;
+				frameTimeArrayFull = true;
+			}
+			CircularFrameTimeArray[frameTimeIndex] = delta;
+			++frameTimeIndex;
 
 			if (testConfig.openHardwareMonitorData &&
 				nanoSec / 1000000 > probeCount * testConfig.probeInterval)
@@ -199,6 +219,18 @@ void mainloop(DataCollection<WMIDataItem>& wmiDataCollection, DataCollection<Pip
 
 	if (testConfig.recordFPS) {
 		SaveToFile("fps_" + fname + ".csv", fpsCsv.str());
+	}
+
+	if (testConfig.recordFrameTime) {
+		if (frameTimeArrayFull) {
+			frameTimeIndex = testConfig.frameTimeArrayLength - 1;
+		}
+
+		for (auto i = 0; i < frameTimeIndex; ++i) {
+			frameTimeCsv << CircularFrameTimeArray[i] << "\n";
+		}
+
+		SaveToFile("frameTime_" + fname + ".csv", frameTimeCsv.str());
 	}
 
 	delete localNow;
