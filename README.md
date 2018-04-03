@@ -47,3 +47,5 @@ To render with Cubes or Skulls go to line 139 in stdafx.h and either write
 TEST_USE_SKULL
 or
 TEST_USE_CUBE
+
+https://www.braynzarsoft.net/ was used as a starting off point, when creating this repository. Thus there may be some similariites in program structure.
