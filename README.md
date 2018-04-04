@@ -50,3 +50,5 @@ TEST_USE_CUBE
 
 ## Acknowledgements
 https://www.braynzarsoft.net/ was used as a starting off point, when creating this repository. Thus there may be some similarities in program structure.
+
+The skull model used for high-polygon testing was downloaded from https://free3d.com/3d-model/skull-human-anatomy-82445.html.
