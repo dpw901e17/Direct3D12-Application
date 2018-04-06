@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OrganizedDirectX12", "OrganizedDirectX12\DirectX12FunTimes.vcxproj", "{4011597E-D1EA-4C12-A2E5-A48265E0D072}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OrganizedDirectX12", "OrganizedDirectX12\OrganizedDirectX12.vcxproj", "{4011597E-D1EA-4C12-A2E5-A48265E0D072}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "scene-window-system", "..\scene-window-system\scene-window-system.vcxproj", "{48127C09-1B72-46FC-B42B-2FDB15D9F2D2}"
 EndProject
